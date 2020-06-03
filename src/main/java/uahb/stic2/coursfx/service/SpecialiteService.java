@@ -1,6 +1,6 @@
 package uahb.stic2.coursfx.service;
 
-
+import uahb.stic2.coursfx.model.Service;
 import uahb.stic2.coursfx.model.Specialite;
 import uahb.stic2.coursfx.utils.DatabaseHelper;
 
@@ -17,6 +17,29 @@ public class SpecialiteService implements ISpecialite {
             while (rs.next()){
                 Specialite s = new Specialite(rs.getInt(1), rs.getString(2));
                 specialites.add(s);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return specialites;
+    }
+
+    @Override
+    public List<Specialite> findAllSpecialiteWithService() {
+        List<Specialite> specialites = new ArrayList<Specialite>();
+        try {
+            DatabaseHelper db = new DatabaseHelper();
+            String sql = "SELECT * FROM specialite sp, service sr "
+                    +"WHERE sp.service_id = sr.id";
+            Object[] params = {};
+            db.myPreparedStatement(sql, params);
+            ResultSet rs = db.myExecuteQuery();
+            while (rs.next()){
+                Specialite sp = new Specialite(rs.getInt(1), rs.getString(2));
+                Service s = new Service(rs.getInt(4), rs.getString(5));
+                sp.setServive(s);
+                specialites.add(sp);
             }
             rs.close();
         } catch (Exception e) {

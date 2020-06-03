@@ -6,13 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="216.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uahb.stic2.coursfx.controller.AuthentificationControler">
+<AnchorPane prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uahb.stic2.coursfx.controller.AuthentificationControler">
    <children>
       <Label layoutX="38.0" layoutY="50.0" text="Nom spécialité" />
-      <TextField fx:id="serviceTfd" layoutX="136.0" layoutY="46.0" prefHeight="25.0" prefWidth="307.0" />
-      <Button layoutX="195.0" layoutY="132.0" mnemonicParsing="false" onAction="#saveHandle" prefHeight="25.0" prefWidth="152.0" text="Enregistrer" />
+      <TextField fx:id="specialiteTfd" layoutX="136.0" layoutY="46.0" prefHeight="25.0" prefWidth="307.0" />
+      <Button fx:id="saveBtn" layoutX="136.0" layoutY="132.0" mnemonicParsing="false" onAction="#saveHandle" prefHeight="25.0" prefWidth="94.0" text="Enregistrer" />
       <Label layoutX="38.0" layoutY="92.0" text="Service :" />
       <ComboBox fx:id="serviceCbx" layoutX="136.0" layoutY="88.0" prefHeight="25.0" prefWidth="307.0" />
+      <TableView fx:id="specialiteTbv" layoutX="15.0" layoutY="179.0" prefHeight="200.0" prefWidth="575.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="libelleCol" prefWidth="326.0" text="LIBELLE" />
+            <TableColumn fx:id="serviceCol" prefWidth="173.0" text="SERVICE" />
+        </columns>
+      </TableView>
+      <Button fx:id="newBtn" layoutX="34.0" layoutY="132.0" mnemonicParsing="false" onAction="#newHandle" prefHeight="25.0" prefWidth="86.0" text="Nouveau" />
+      <Button fx:id="updateBtn" layoutX="251.0" layoutY="132.0" mnemonicParsing="false" onAction="#updateHandle" prefHeight="25.0" prefWidth="102.0" text="Modifier" />
+      <Button fx:id="deleteBtn" layoutX="379.0" layoutY="132.0" mnemonicParsing="false" onAction="#deleteHandle" prefHeight="25.0" prefWidth="94.0" text="Supprimer" />
    </children>
 </AnchorPane>
