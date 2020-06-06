@@ -10,7 +10,21 @@ public class DatabaseHelper {
         return pstmt;
     }
 
-    private void openConnection(){
+    private static DatabaseHelper db;
+
+    private DatabaseHelper()
+    {
+
+    }
+
+    public static DatabaseHelper getInstance(){
+        if(db == null){
+            db = new DatabaseHelper();
+        }
+        return db;
+    }
+
+    private void openConnection() throws Exception{
         try {
             if(cnx == null || cnx.isClosed()){
                 Class.forName("com.mysql.jdbc.Driver");
@@ -19,10 +33,11 @@ public class DatabaseHelper {
                 cnx = DriverManager.getConnection(url, user, pwd);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
-    public void myPreparedStatement(String sql, Object[] parametres){
+    public void myPreparedStatement(String sql, Object[] parametres) throws Exception{
+
         try {
             openConnection();
             if(sql.toUpperCase().trim().startsWith("INSERT")){
@@ -36,38 +51,35 @@ public class DatabaseHelper {
                 pstmt.setObject(i+1, parametres[i]);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 
-    public ResultSet mySelect(String tableName){
+    public ResultSet mySelect(String tableName) throws Exception{
         try {
             openConnection();
             Statement stmt = cnx.createStatement();
             return stmt.executeQuery("SELECT * FROM "+tableName);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
-    public ResultSet myExecuteQuery(){
+    public ResultSet myExecuteQuery() throws Exception{
         try {
             return pstmt.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
-    public int myExecuteUpdate(){
+    public int myExecuteUpdate() throws Exception{
         try {
             return pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return 0;
     }
-    public void closeConnection(){
+    public void closeConnection() throws Exception{
         try {
             if(pstmt != null && !pstmt.isClosed()){
                 pstmt.close();
@@ -78,7 +90,39 @@ public class DatabaseHelper {
                 cnx = null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public void beginTransaction() throws Exception
+    {
+        try {
+            openConnection();
+            cnx.setAutoCommit(false);
+        }catch (Exception e) {
+            throw e;
+        }
+    }
+    public void endTransaction() throws Exception
+    {
+        try {
+            cnx.setAutoCommit(true);
+        }catch (Exception e) {
+            throw e;
+        }
+    }
+    public void myCommit() throws Exception{
+        try {
+            cnx.commit();
+        }catch (Exception e) {
+            throw e;
+        }
+    }
+    public void myRollback() throws Exception{
+        try {
+            cnx.commit();
+        }catch (Exception e) {
+            throw e;
         }
     }
 }

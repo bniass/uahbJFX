@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="318.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uahb.stic2.coursfx.controller.ServiceController">
+   <children>
+      <Label layoutX="209.0" layoutY="47.0" text="ENREGISTREMENT D'UN SERVICEE" />
+      <Label layoutX="79.0" layoutY="89.0" text="NOM SERVICE :" />
+      <Label layoutX="79.0" layoutY="132.0" text="SPECIALITE 1 :" />
+      <Label layoutX="79.0" layoutY="183.0" text="SPECIALITE 2 :" />
+      <TextField fx:id="serviceTfd" layoutX="194.0" layoutY="85.0" prefHeight="25.0" prefWidth="252.0" />
+      <TextField fx:id="specialiteTfd1" layoutX="194.0" layoutY="128.0" prefHeight="25.0" prefWidth="252.0" />
+      <TextField fx:id="specialiteTfd2" layoutX="194.0" layoutY="179.0" prefHeight="25.0" prefWidth="252.0" />
+      <Button layoutX="241.0" layoutY="233.0" mnemonicParsing="false" onAction="#saveHandle" text="ENREGISTRER" />
+   </children>
+</AnchorPane>

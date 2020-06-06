@@ -113,13 +113,18 @@ public class AuthentificationControler implements Initializable {
                     "Spécialité obligatoire !");
             return false;
         }
-
-        if(iSpecialite.findByLibelle(specialiteTfd.getText().trim()) != null){
-            Utils.showMessage("COURS FX",
-                    "Gestion des spécialité",
-                    "Cette spécialité exite déja !");
-            return false;
+        try {
+            if(iSpecialite.findByLibelle(specialiteTfd.getText().trim()) != null){
+                Utils.showMessage("COURS FX",
+                        "Gestion des spécialité",
+                        "Cette spécialité exite déja !");
+                return false;
+            }
         }
+        catch(Exception e){
+
+        }
+
         if(serviceCbx.getSelectionModel().getSelectedItem() == null){
             Utils.showMessage("COURS FX",
                     "Gestion des spécialité",
@@ -156,30 +161,38 @@ public class AuthentificationControler implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         iService = new ServiceService();
-        List<Service> services = iService.findAll();
-        serviceCbx.setItems(FXCollections.observableArrayList(services));
+        try {
+            List<Service> services = iService.findAll();
+            serviceCbx.setItems(FXCollections.observableArrayList(services));
 
-        idCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId()));
-        libelleCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>
-                (cellData.getValue().getLibelle()));
-        serviceCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>
-                (cellData.getValue().getServive()));
+            idCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId()));
+            libelleCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>
+                    (cellData.getValue().getLibelle()));
+            serviceCol.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>
+                    (cellData.getValue().getServive()));
 
-        iSpecialite = new SpecialiteService();
-        List<Specialite> specialites = iSpecialite.findAllSpecialiteWithService();
-        ob = FXCollections.observableArrayList(specialites);
-        specialiteTbv.setItems(ob);
+            iSpecialite = new SpecialiteService();
+            List<Specialite> specialites = iSpecialite.findAllSpecialiteWithService();
+            ob = FXCollections.observableArrayList(specialites);
+            specialiteTbv.setItems(ob);
 
-        saveBtn.setDisable(true);
-        updateBtn.setDisable(true);
-        deleteBtn.setDisable(true);
-        //specialiteTbv.getSelectionModel().
-                //setSelectionMode(SelectionMode.MULTIPLE);
+            saveBtn.setDisable(true);
+            updateBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+            //specialiteTbv.getSelectionModel().
+            //setSelectionMode(SelectionMode.MULTIPLE);
 
-        specialiteTbv.setOnMouseClicked((event)->{
-            activateButton(false);
-            load();
-        });
+            specialiteTbv.setOnMouseClicked((event)->{
+                activateButton(false);
+                load();
+            });
+        }
+        catch (Exception e){
+            Utils.showMessage("COURS FX",
+                    "Gestion des spécialité",
+                    "Erreur :"+e);
+        }
+
 
 
     }

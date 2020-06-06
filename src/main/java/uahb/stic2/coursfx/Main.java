@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        LoadView.showView("COURS FX","authentification.fxml",1);
+        LoadView.showView("COURS FX","FormService.fxml",1);
     }
 
 
